@@ -30,7 +30,7 @@ export class Money {
     return this.cents / 100;
   }
 
-  getCents(): number {
+  toCents(): number {
     return this.cents;
   }
 }
