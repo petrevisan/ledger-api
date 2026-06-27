@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import {
-  integer,
   pgTable,
   pgView,
   varchar,
@@ -9,6 +8,7 @@ import {
   bigint,
   jsonb,
   index,
+  check,
   pgEnum,
 } from "drizzle-orm/pg-core";
 
@@ -61,7 +61,6 @@ export const entriesTable = pgTable(
     eventId: uuid("event_id")
       .notNull()
       .references(() => eventsTable.id),
-    eventPosition: bigint("event_position", { mode: "number" }).notNull(),
     accountId: uuid("account_id")
       .notNull()
       .references(() => accountsTable.accountId),
@@ -74,6 +73,8 @@ export const entriesTable = pgTable(
   (table) => [
     index("entries_account_idx").on(table.accountId),
     index("entries_event_idx").on(table.eventId),
+    // amount é sempre uma magnitude positiva; o sinal vive na `direction`.
+    check("entries_amount_positive", sql`${table.amount} > 0`),
   ],
 );
 
