@@ -46,3 +46,11 @@ export class DuplicateTransactionError extends DomainError {
     );
   }
 }
+
+export class EmptyTransactionError extends DomainError {
+  readonly statusCode = 400;
+
+  constructor() {
+    super("Transaction must have at least one entry");
+  }
+}
