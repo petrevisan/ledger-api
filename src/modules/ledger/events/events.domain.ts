@@ -6,7 +6,6 @@ import {
 } from "../../../domain/error.js";
 
 export interface Entry {
-  id: string;
   accountId: string;
   direction: MoneyDirection;
   amount: Money;
@@ -21,6 +20,7 @@ export type EventTypes = (typeof EventTypesEnum)[number];
 export class Event {
   constructor(
     readonly id: string,
+    readonly type: EventTypes,
     readonly entries: Readonly<Entry[]>,
   ) {
     if (entries.length === 0) {
