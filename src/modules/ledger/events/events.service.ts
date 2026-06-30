@@ -5,7 +5,7 @@ import { type Entry, Event } from "./events.domain.js";
 import { EventsRepository } from "./events.repository.js";
 
 export class EventsService {
-  constructor(private readonly eventsRepository: EventsRepository) {}
+  constructor(private readonly eventsRepository = new EventsRepository()) {}
 
   async transfer(input: TransferRequest): Promise<EventResponse> {
     const money = Money.fromCents(input.amount);
