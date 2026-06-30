@@ -2,7 +2,7 @@ import { z } from "zod";
 import { MoneyDirectionSchema } from "../../../domain/money-direction.js";
 import { EventTypesEnum } from "./events.domain.js";
 
-const transferRequestSchema = z.object({
+export const transferRequestSchema = z.object({
   fromAccountId: z.uuid(),
   toAccountId: z.uuid(),
   amount: z.number().int().positive(),
