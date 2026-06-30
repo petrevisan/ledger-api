@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { secureHeaders } from "hono/secure-headers";
 import { errorHandler } from "./shared/middlewares/error-handler.js";
 import { IdentityRoutes } from "./modules/identity/identity.http.js";
-import { TransactionsRoutes } from "./modules/ledger/events/events.http.js";
+import { EventsRoutes } from "./modules/ledger/events/events.http.js";
 
 const app = new Hono();
 
@@ -14,7 +14,7 @@ app.get("/", (c) => {
 });
 
 app.route("/identity", IdentityRoutes());
-app.route("/transactions", TransactionsRoutes());
+app.route("/events", EventsRoutes());
 
 app.onError(errorHandler);
 
