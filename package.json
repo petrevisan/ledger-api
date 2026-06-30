@@ -13,6 +13,7 @@
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.25",
     "pg": "^8.22.0",
+    "redis": "^6.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
