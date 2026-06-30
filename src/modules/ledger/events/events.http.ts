@@ -1,11 +1,16 @@
 import { Hono } from "hono";
 import { validateJSON } from "../../../shared/validation.js";
+import { transferRequestSchema } from "./events.dto.js";
+import { EventsService } from "./events.service.js";
 
-export function TransactionsRoutes() {
+export function EventsRoutes() {
   const app = new Hono();
+  const service = new EventsService();
 
-  app.get("/", (c) => {
-    return c.json({ message: "Transactions service is running" });
+  app.post("/transfers", validateJSON(transferRequestSchema), async (c) => {
+    const input = c.req.valid("json");
+    const event = await service.transfer(input);
+    return c.json(event, 201);
   });
 
   return app;
