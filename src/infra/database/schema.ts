@@ -11,13 +11,11 @@ import {
   check,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { EventTypesEnum } from "../../modules/ledger/events/events.domain.js";
 
 export const directionEnum = pgEnum("direction", ["debit", "credit"]);
 
-export const eventTypesEnum = pgEnum("event_types", [
-  "money_transferred",
-  "transfer_reversed",
-]);
+export const eventTypesEnum = pgEnum("event_types", EventTypesEnum);
 
 export const usersTable = pgTable("users", {
   id: uuid().primaryKey().notNull().defaultRandom(),
@@ -44,7 +42,7 @@ export const eventsTable = pgTable(
     position: bigint({ mode: "number" })
       .primaryKey()
       .generatedAlwaysAsIdentity(),
-    id: uuid().notNull().defaultRandom().unique(),
+    id: uuid().notNull().unique(),
     type: eventTypesEnum().notNull(),
     entries: jsonb().notNull(),
     occurredAt: timestamp("occurred_at", { withTimezone: true })
