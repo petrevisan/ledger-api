@@ -54,3 +54,19 @@ export class EmptyTransactionError extends DomainError {
     super("Transaction must have at least one entry");
   }
 }
+
+export class EventNotFoundError extends DomainError {
+  readonly statusCode = 404;
+
+  constructor(eventID: string) {
+    super(`Event ${eventID} not found`);
+  }
+}
+
+export class TransferAlreadyReversedError extends DomainError {
+  readonly statusCode = 409;
+
+  constructor(eventID: string) {
+    super(`Event ${eventID} has already been reversed`);
+  }
+}
